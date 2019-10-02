@@ -1,16 +1,13 @@
-<?php 
+<?php
 include('database.php');
-$search = $_POST['search'];
-if(!empty($search)){
-	$query = "Select * FROM task WHERE name LIKE '$search%' ";
+	$query = "SELECT * FROM task";
 	$result = mysqli_query($connection, $query);
 	if(!$result){
-		die('Query Error'. mysqli_error($connection));
-
+		die("Proccess failed");
 	}
 	$json = array();
-	while($row = mysqli_fetch_array($result)) {
-		$json[] = array(
+	while($row = mysqli_fetch_array($result)){
+		$json[] = array( 
 			'name' => $row['name'],
 			'description' => $row['description'],
 			'id' => $row['id']
@@ -18,6 +15,5 @@ if(!empty($search)){
 	}
 	$jsonstring = json_encode($json);
 	echo $jsonstring;
-}
 
 ?>
